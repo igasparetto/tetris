@@ -1,11 +1,13 @@
-body{font-family: arial; text-align: center; width: 100%; overflow: hidden;}
+body{font-family: arial; text-align: center; width: 100%; overflow: hidden; font-size: 12px;}
+main {display: flex;}
 #wrapper{margin: 0 auto; text-align: left; width: 620px;}
 #wrapper::after{clear: both; display: block; content:"";}
-#left, #centre, #right {float: left; width: 140px; height:400px; padding: 20px}
+#left, #centre, #right {float: left; width: 140px; padding: 20px}
 
-#left {background-color: rgb(194, 220, 235);}
+#left {background-color: #a1a5a8}
 #centre {width: 200px; background-color:rgb(183, 183, 183); position: relative;}
-#right {background-color: rgb(222, 245, 199); text-align: center;}
+#right {background-color: #a1a5a8; text-align: center;}
+
 #game {
   height: 100%;
   background: rgb(46, 46, 46);
@@ -14,7 +16,7 @@ body{font-family: arial; text-align: center; width: 100%; overflow: hidden;}
   height: 120px;
 }
 #message {
-  font-size: 20px;
+  font-size: 16px;
   color: rgb(152, 11, 11);
   text-shadow: 0px 0px 20px white;
   font-weight: bold;
@@ -28,19 +30,22 @@ body{font-family: arial; text-align: center; width: 100%; overflow: hidden;}
   border: 20px solid rgb(183, 183, 183);;
 }
 #next-piece::after{clear: both; display: block; content:"";}
-#start {cursor: pointer;}
+#start {cursor: pointer; width: 100%; border-radius: 4px;}
 .block, #start {
   box-sizing: border-box;
   border: 3px outset black;
   background-color: rgb(22, 22, 22);
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
   color: white;
 }
 .block {
   float:left;
   width: 20px;
   height:20px;
+  font-size: 11px;
+  padding-top: 2px;
+  text-shadow: 0 0 2px black;
 }
 .red {
   border: 3px outset gray;
@@ -70,3 +75,12 @@ body{font-family: arial; text-align: center; width: 100%; overflow: hidden;}
   border: 3px outset gray;
   background-color: #FF7E15;
 }
+
+#options ul, #options li {
+  text-align: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {font-size: 16px;}

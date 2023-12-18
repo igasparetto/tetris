@@ -1,16 +1,17 @@
-let blocks = [
+
+let basicBlocks = [
   [
     [1,1],
-    [1,1],
+    [1,1]
   ],
   [
     [1,1,1],
-    [0,1,0],
+    [0,1,0]
   ],
   [
     [1,1],
     [0,1],
-    [0,1],
+    [0,1]
   ],
   [
     [1,1,0],
@@ -21,7 +22,31 @@ let blocks = [
     [1],
     [1],
     [1]
+  ]
+];
+let blocks = basicBlocks;
+let extraBlocks = [
+  // specials
+  [
+    [1],
   ],
+  [
+    [1,1],
+    [1,0]
+  ],
+  [
+    [0,0,1],
+    [0,1,0],
+    [1,0,0]
+  ],
+  [
+    [1,1,1],
+    [1,0,1]
+  ],
+  [
+    [1,1,1],
+    [0,1,1]
+  ]
 ];
 let colors = [
   "red",
@@ -58,11 +83,18 @@ let level = 1;
 let lines = 0;
 let totalBlocks = 0;
 
+let speedReductionFactor= 0.7; // 0.7 for -30%
+
 let $score = document.getElementById("score");
 let $level = document.getElementById("level");
 let $lines = document.getElementById("lines");
+let $speed = document.getElementById("speed");
+let $totalBlocks = document.getElementById("total-blocks");
 
+let $game = document.getElementById("game");
 let $start = document.getElementById("start");
+
+let $printMatrixStatus = document.getElementById('print-matrix-status');
 
 let $message = document.getElementById("message");
 function message(text) {
@@ -107,12 +139,16 @@ function getRandom(max) {
 
 function drawMatrix(id, matrix) {
   let $area = document.getElementById(id);
+  let printStatus = $printMatrixStatus.checked;
   $area.innerHTML = "";
   for(let row=0; row<matrix.length; row++) {
     $row = document.createElement("div");
     $row.setAttribute("class", "row");
     for(let col=0; col<matrix[row].length; col++) {
       $block = document.createElement("div");
+      if(printStatus) {
+        $block.innerHTML = matrix[row][col]["occupied"];
+      }
       $block.setAttribute("class", "block " + (matrix[row][col]["occupied"] ? matrix[row][col]["color"] : ""));
       $row.appendChild($block);
     }
@@ -153,10 +189,12 @@ function nextBlockIn(){
   totalBlocks++;
   pushNextBlockToGame(nextBlock, nextColor);
   if(totalBlocks%20 === 0) {
-    speed = speed * 0.7;
+    speed = speed * speedReductionFactor;
     level++;
     $level.innerHTML = level;
   }
+  $totalBlocks.innerHTML = totalBlocks;
+  $speed.innerHTML = Math.floor(speed);
   drawMatrix("game", matrix);
 
   genNextBlock();
@@ -170,15 +208,12 @@ function addScore(n) {
 function move1Down(){
   // can it move down to the next position?
   let canMove = true;
-  let touchDown = false;
 
   currentBlockPositions.forEach((point) => {
     if(point.row+1 == numberOfRows) {
       canMove = false;
-      touchDown = true;
     } else if(matrix[point.row+1][point.col]["occupied"] === 2) {
       canMove = false;
-      touchDown = true;
     }
   });
 
@@ -195,8 +230,7 @@ function move1Down(){
       matrix[point.row][point.col]["occupied"] = 1;
     });
     currentBlockPositions = newCurrentBlockPositions;
-  }
-  if(touchDown) {
+  } else {
     addScore(1);
     currentBlockPositions.forEach((point) => {
       matrix[point.row][point.col]["occupied"] = 2;
@@ -385,9 +419,18 @@ function start() {
   gameInPlay = true;
 }
 
+document.getElementById('extra-blocks').addEventListener("change", function (e) {
+  if(e.target.checked) {
+    blocks = basicBlocks.concat(extraBlocks);
+  } else {
+    blocks = basicBlocks;
+  }
+});
+
 $start.addEventListener("click", function () {
   start();
-})
+  $game.focus();
+});
 
 window.addEventListener("keydown", function (e) {
   if(gameIsPaused || !gameInPlay) {
@@ -420,3 +463,6 @@ window.addEventListener("keypress", function (e) {
     }
   }
 });
+
+matrix = setInitialMatrix([], numberOfRows, numberOfColumns);
+drawMatrix("game", matrix);

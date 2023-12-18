@@ -15,25 +15,51 @@
     <main>
       <div id="left">
         <div id="left-inner">
-          <div id="start">Start</div>
+          <button id="start">Start</button>
           <hr>
           <h2>Statistics</h2>
-          <p>Score: <span id="score">0</span></p>
-          <p>Level: <span id="level">1</span></p>
-          <p>Lines: <span id="lines">0</span></p>
+          <table>
+            <tr>
+              <th>Score:</th>
+              <td id="score">0</td>
+            </tr>
+            <tr>
+              <th>Level:</th>
+              <td id="level">1</td>
+            </tr>
+            <tr>
+              <th>Lines:</th>
+              <td id="lines">0</td>
+            </tr>
+            <tr>
+              <th>Speed:</th>
+              <td><span id="speed">0</span>ms</td>
+            </tr>
+            <tr>
+              <th>Blocks:</th>
+              <td id="total-blocks">0</td>
+            </tr>
+          </table>
           <p id="message">Welcome</p>
         </div>
       </div>
       <div id="centre">
-        <div id="game"></div>
+        <div id="game" tabindex="0"></div>
       </div>
       <div id="right">
         <h2>Next</h2>
         <div id="next-piece"></div>
+        <div id="options">
+          <h2>Options</h2>
+          <ul>
+            <li><label><input type="checkbox" id="extra-blocks"> Extra blocks</label></li>
+            <li><label><input type="checkbox" id="print-matrix-status"> Print matrix status</label></li>
+          </ul>
+        </div>
       </div>
     </main>
     <footer>
-      <p>Press arrows to play. Space pauses the game.</p>
+      <p>Press arrows to move. Space pauses the game.</p>
     </footer>
   </div>
   <script src='js/main.js'></script>
