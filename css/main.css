@@ -1,11 +1,12 @@
 body{font-family: arial; text-align: center; width: 100%; overflow: hidden; font-size: 12px; background: rgb(17, 17, 17);}
 main {display: flex;}
-footer{color: white;}
-#wrapper{margin: 0 auto; text-align: left; width: 620px;}
+footer{color: white; text-align: center;}
+#wrapper{margin: 0 auto; text-align: left; }
 #wrapper::after{clear: both; display: block; content:"";}
+
 #left, #centre, #right {float: left; padding: 20px; background-color: #e0dee9;}
 #instructions {margin-top: 20px;}
-#left {flex-grow: 1;}
+#left {display: none; flex-grow: 1;}
 #centre {width: 200px; position: relative;}
 #right {text-align: center;}
 
@@ -27,7 +28,7 @@ footer{color: white;}
 }
 
 #next-piece::after{clear: both; display: block; content:"";}
-.block, #start {
+.block, .btn {
   box-sizing: border-box;
   border: 1px inset rgb(52 57 72 / 50%);
   background-color: #161616;
@@ -35,7 +36,8 @@ footer{color: white;}
   font-size: 16px;
   color: #999999;
 }
-#start {cursor: pointer; width: 100%; border-radius: 4px; margin-top: 20px; color: #fff; padding: 10px;}
+.btn {cursor: pointer; border-radius: 4px; color: #fff; padding: 10px; margin: 5px; background: #826aec}
+#start{width: 100%; margin: 20px 0 0 0; background-color: #161616;}
 .block {
   float:left;
   width: 20px;
@@ -107,5 +109,18 @@ footer{color: white;}
   padding: 0;
 }
 
-h1 {text-align: center; color: white;}
+h1 {text-align: center; color: white; color:#826aec}
 h2 {font-size: 16px; margin-top: 0;}
+
+#left, #centre, #right{padding: 10px;}
+#controls {display: flex;}
+#controls > div {flex-grow: 1; padding: 20px}
+#controls > div:nth-child(2) {text-align: right;}
+#instructions {display: none;}
+@media (min-width: 680px) {
+  #left, #centre, #right{padding: 20px;}
+  #wrapper{width: 600px;}
+  #left {display: block;}
+  #instructions {display: block;}
+  #controls {display: none;}
+}

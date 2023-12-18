@@ -467,6 +467,34 @@ window.addEventListener("keydown", function (e) {
   }
 });
 
+document.getElementById("btnRight").addEventListener("click", function(){
+  if(gameIsPaused || !gameInPlay) {
+    return;
+  }
+  moveRL(1);
+  drawMatrix("game", matrix);
+});
+document.getElementById("btnLeft").addEventListener("click", function(){
+  if(gameIsPaused || !gameInPlay) {
+    return;
+  }
+  moveRL(-1);
+  drawMatrix("game", matrix);
+});
+document.getElementById("btnRotate").addEventListener("click", function(){
+  if(gameIsPaused || !gameInPlay) {
+    return;
+  }
+  rotate();
+  drawMatrix("game", matrix);
+});
+document.getElementById("btnDown").addEventListener("click", function(){
+  if(gameIsPaused || !gameInPlay) {
+    return;
+  }
+  move1Down();
+});
+
 window.addEventListener("keypress", function (e) {
   if(gameInPlay) {
     if (e.code == "Space") {
