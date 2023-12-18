@@ -1,79 +1,103 @@
-body{font-family: arial; text-align: center; width: 100%; overflow: hidden; font-size: 12px;}
+body{font-family: arial; text-align: center; width: 100%; overflow: hidden; font-size: 12px; background: rgb(17, 17, 17);}
 main {display: flex;}
+footer{color: white;}
 #wrapper{margin: 0 auto; text-align: left; width: 620px;}
 #wrapper::after{clear: both; display: block; content:"";}
-#left, #centre, #right {float: left; width: 140px; padding: 20px}
-
-#left {background-color: #a1a5a8}
-#centre {width: 200px; background-color:rgb(183, 183, 183); position: relative;}
-#right {background-color: #a1a5a8; text-align: center;}
+#left, #centre, #right {float: left; padding: 20px; background-color: #e0dee9;}
+#instructions {margin-top: 20px;}
+#left {flex-grow: 1;}
+#centre {width: 200px; position: relative;}
+#right {text-align: center;}
 
 #game {
   height: 100%;
   background: rgb(46, 46, 46);
 }
-#next-piece {
-  height: 120px;
-}
 #message {
   font-size: 16px;
-  color: rgb(152, 11, 11);
+  color: #673AB7;
   text-shadow: 0px 0px 20px white;
   font-weight: bold;
   text-align: center;
-  border: 3px solid rgb(152, 11, 11);
 }
 
 #next-piece {
-  background-color: rgb(111, 111, 111);
-  width: 100px;
-  border: 20px solid rgb(183, 183, 183);;
+  margin-left: 10px;
+  margin-bottom: 20px;
 }
+
 #next-piece::after{clear: both; display: block; content:"";}
-#start {cursor: pointer; width: 100%; border-radius: 4px;}
 .block, #start {
   box-sizing: border-box;
-  border: 3px outset black;
-  background-color: rgb(22, 22, 22);
+  border: 1px inset rgb(52 57 72 / 50%);
+  background-color: #161616;
   text-align: center;
   font-size: 16px;
-  color: white;
+  color: #999999;
 }
+#start {cursor: pointer; width: 100%; border-radius: 4px; margin-top: 20px; color: #fff; padding: 10px;}
 .block {
   float:left;
   width: 20px;
   height:20px;
   font-size: 11px;
   padding-top: 2px;
-  text-shadow: 0 0 2px black;
 }
 .red {
-  border: 3px outset gray;
-  background-color: #FF2B06;
+  border-top: 1px outset rgb(255 43 6 / 80%);
+  border-left: 1px outset rgb(255 43 6 / 60%);
+  border-right: 1px outset rgb(255 43 6 / 60%);
+  border-bottom: 1px outset rgb(255 43 6 / 70%);
+  box-shadow: 0 0 10px 10px rgb(255 43 6 / 10%) inset;
+  background-color: #282c38;
 }
 .green {
-  border: 3px outset gray;
-  background-color: #00FB30;
+  border-top: 1px outset rgb(0 251 48 / 80%);
+  border-left: 1px outset rgb(0 251 48 / 60%);
+  border-right: 1px outset rgb(0 251 48 / 60%);
+  border-bottom: 1px outset rgb(0 251 48 / 70%);
+  box-shadow: 0 0 10px 10px rgb(0 251 48 / 10%) inset;
+  background-color: #282c38;
 }
 .blue {
-  border: 3px outset gray;
-  background-color: rgb(73, 75, 212);
+  border-top: 1px outset rgb(73 75 212 / 80%);
+  border-left: 1px outset rgb(73 75 212 / 60%);
+  border-right: 1px outset rgb(73 75 212 / 60%);
+  border-bottom: 1px outset rgb(73 75 212 / 70%);
+  box-shadow: 0 0 10px 10px rgb(73 75 212 / 10%) inset;
+  background-color: #282c38;
 }
 .cyan {
-  border: 3px outset gray;
-  background-color: #70D5FE;
+  border-top: 1px outset rgb(112 213 254 / 80%);
+  border-left: 1px outset rgb(112 213 254 / 60%);
+  border-right: 1px outset rgb(112 213 254 / 60%);
+  border-bottom: 1px outset rgb(112 213 254 / 70%);
+  box-shadow: 0 0 10px 10px rgb(112 213 254 / 10%) inset;
+  background-color: #282c38;
 }
 .yellow {
-  border: 3px outset gray;
-  background-color: #FEFD32;
+  border-top: 1px outset rgb(254 253 50 / 80%);
+  border-left: 1px outset rgb(254 253 50 / 60%);
+  border-right: 1px outset rgb(254 253 50 / 60%);
+  border-bottom: 1px outset rgb(254 253 50 / 70%);
+  box-shadow: 0 0 10px 10px rgb(254 253 50 / 10%) inset;
+  background-color: #282c38;
 }
 .pink {
-  border: 3px outset gray;
-  background-color: #DD32FC;
+  border-top: 1px outset rgb(221 50 252 / 80%);
+  border-left: 1px outset rgb(221 50 252 / 60%);
+  border-right: 1px outset rgb(221 50 252 / 60%);
+  border-bottom: 1px outset rgb(221 50 252 / 70%);
+  box-shadow: 0 0 10px 10px rgb(221 50 252 / 10%) inset;
+  background-color: #282c38;
 }
 .orange {
-  border: 3px outset gray;
-  background-color: #FF7E15;
+  border-top: 1px outset rgb(255 126 21 / 80%);
+  border-left: 1px outset rgb(255 126 21 / 60%);
+  border-right: 1px outset rgb(255 126 21 / 60%);
+  border-bottom: 1px outset rgb(255 126 21 / 70%);
+  box-shadow: 0 0 10px 10px rgb(255 126 21 / 10%) inset;
+  background-color: #282c38;
 }
 
 #options ul, #options li {
@@ -83,4 +107,5 @@ main {display: flex;}
   padding: 0;
 }
 
-h2 {font-size: 16px;}
+h1 {text-align: center; color: white;}
+h2 {font-size: 16px; margin-top: 0;}

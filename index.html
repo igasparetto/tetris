@@ -10,13 +10,11 @@
 <body>
   <div id="wrapper">
     <header>
-      <h1>Tetris</h1>
+      <h1>TETRIS</h1>
     </header>
     <main>
       <div id="left">
         <div id="left-inner">
-          <button id="start">Start</button>
-          <hr>
           <h2>Statistics</h2>
           <table>
             <tr>
@@ -40,7 +38,24 @@
               <td id="total-blocks">0</td>
             </tr>
           </table>
-          <p id="message">Welcome</p>
+          <div id="instructions">
+            <h2>Controls</h2>
+            <table>
+              <tr>
+                <td>&larr; &rarr;</td>
+                <td>right/left move</td>
+              </tr>
+              <tr>
+                <td>&uarr;</td>
+                <td>rotates</td>
+              </tr>
+              <tr>
+                <td>&darr;</td>
+                <td>pushes down</td>
+              </tr>
+            </table>
+            <p>Space pauses the game.</p>
+          </div>
         </div>
       </div>
       <div id="centre">
@@ -56,10 +71,12 @@
             <li><label><input type="checkbox" id="print-matrix-status"> Print matrix status</label></li>
           </ul>
         </div>
+        <button id="start">Start</button>
+        <p id="message">Welcome</p>
       </div>
     </main>
     <footer>
-      <p>Press arrows to move. Space pauses the game.</p>
+      <p>&copy; Ivan Gasparetto</p>
     </footer>
   </div>
   <script src='js/main.js'></script>

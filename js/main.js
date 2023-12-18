@@ -26,7 +26,6 @@ let basicBlocks = [
 ];
 let blocks = basicBlocks;
 let extraBlocks = [
-  // specials
   [
     [1],
   ],
@@ -185,9 +184,9 @@ function genNextBlock() {
 }
 
 function nextBlockIn(){
+  pushNextBlockToGame(nextBlock, nextColor);
   currentBlock = nextBlock;
   totalBlocks++;
-  pushNextBlockToGame(nextBlock, nextColor);
   if(totalBlocks%20 === 0) {
     speed = speed * speedReductionFactor;
     level++;
@@ -196,7 +195,6 @@ function nextBlockIn(){
   $totalBlocks.innerHTML = totalBlocks;
   $speed.innerHTML = Math.floor(speed);
   drawMatrix("game", matrix);
-
   genNextBlock();
 }
 
@@ -205,6 +203,7 @@ function addScore(n) {
   $score.innerHTML = score;
 }
 
+let rowClearedScore = 15;
 function move1Down(){
   // can it move down to the next position?
   let canMove = true;
@@ -235,12 +234,22 @@ function move1Down(){
     currentBlockPositions.forEach((point) => {
       matrix[point.row][point.col]["occupied"] = 2;
     });
-    clearFirstCompleteRow();
+
+    let rowsCleared = clearFirstCompleteRow();
+    if(rowsCleared) {
+      lines = lines+rowsCleared;
+      $lines.innerHTML = lines;
+      addScore(Math.pow(rowClearedScore, rowsCleared));
+    }
+
     nextBlockIn();
   }
 }
 
-function clearFirstCompleteRow() {
+function clearFirstCompleteRow(total) {
+  if(!total) {
+    total = 1;
+  }
   for(let row = matrix.length-1; row>=0; row--) {
     let removeRow = true;
     for(let col=0; col<matrix[row].length; col++) {
@@ -254,15 +263,10 @@ function clearFirstCompleteRow() {
         matrix[row][kol]["occupied"] = 0;
       }
       matrix.unshift(matrix.splice(row, 1)[0]);
-      // add points
-      addScore(15);
-      lines++;
-      $lines.innerHTML = lines;
-      clearFirstCompleteRow();
-      return row;
+      return total + clearFirstCompleteRow();
     }
   }
-  return false;
+  return 0;
 }
 
 function moveRL(direction){
@@ -381,16 +385,21 @@ function gameOver(){
   message("Game Over");
   clearInterval(clockTick);
   gameInPlay = false;
+  gameIsPaused = false;
+  $start.innerHTML = "Start";
 }
 
 function pause(){
   clearInterval(clockTick);
   message("Game paused");
   gameIsPaused = true;
+  $start.innerHTML = "Start";
 }
 
 function startTimer(){
   gameIsPaused = false;
+  message("Playing");
+  $start.innerHTML = "Pause";
   clockTick = setInterval(function(){
     move1Down();
     drawMatrix("game", matrix);
@@ -417,6 +426,7 @@ function start() {
   nextBlockIn();
   startTimer();
   gameInPlay = true;
+  $start.innerHTML = "Pause";
 }
 
 document.getElementById('extra-blocks').addEventListener("change", function (e) {
@@ -428,7 +438,13 @@ document.getElementById('extra-blocks').addEventListener("change", function (e) 
 });
 
 $start.addEventListener("click", function () {
-  start();
+  if(!gameInPlay) {
+    start();
+  } else if(gameIsPaused) {
+    startTimer();
+  } else if(!gameIsPaused) {
+    pause();
+  }
   $game.focus();
 });
 
@@ -456,7 +472,6 @@ window.addEventListener("keypress", function (e) {
     if (e.code == "Space") {
       if(gameIsPaused) {
         startTimer();
-        message("Playing");
       } else {
         pause();
       }
@@ -464,5 +479,5 @@ window.addEventListener("keypress", function (e) {
   }
 });
 
-matrix = setInitialMatrix([], numberOfRows, numberOfColumns);
-drawMatrix("game", matrix);
+drawMatrix("game", setInitialMatrix([], numberOfRows, numberOfColumns));
+drawMatrix("next-piece", setInitialMatrix([], nextNumberOfRows, nextNumberOfColumns));
