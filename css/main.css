@@ -1,4 +1,4 @@
-body{font-family: arial; text-align: center; width: 100%; overflow: hidden; font-size: 12px; background: rgb(17, 17, 17);}
+body{touch-action: manipulation; font-family: arial; text-align: center; width: 100%; overflow: hidden; font-size: 12px; background: rgb(17, 17, 17);}
 main {display: flex;}
 footer{color: white; text-align: center;}
 #wrapper{margin: 0 auto; text-align: left; }
