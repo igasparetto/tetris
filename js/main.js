@@ -382,7 +382,7 @@ function rotate() {
 }
 
 function gameOver(){
-  message("Game Over");
+  message("Game Over<br>" + "Score: " + score);
   clearInterval(clockTick);
   gameInPlay = false;
   gameIsPaused = false;
@@ -448,51 +448,41 @@ $start.addEventListener("click", function () {
   $game.focus();
 });
 
-window.addEventListener("keydown", function (e) {
+function action(foo, param){
   if(gameIsPaused || !gameInPlay) {
     return;
   }
-  
-  if(e.code == "ArrowRight") {
-    moveRL(1);
-    drawMatrix("game", matrix);
-  } else if (e.code == "ArrowLeft") {
-    moveRL(-1);
-    drawMatrix("game", matrix);
-  } else if (e.code == "ArrowUp") {
-    rotate();
-    drawMatrix("game", matrix);
-  } else if (e.code == "ArrowDown"){
-    move1Down();
-  }
-});
+  foo(param);
+  drawMatrix("game", matrix);
+}
+function actionRight(){
+  action(moveRL, 1);
+}
+function actionLeft(){
+  action(moveRL, -1);
+}
+function actionRotate(){
+  action(rotate);
+}
+function actionMoveDown(){
+  action(move1Down);
+}
 
-document.getElementById("btnRight").addEventListener("click", function(){
-  if(gameIsPaused || !gameInPlay) {
-    return;
+document.getElementById("btnRight").addEventListener("click", actionRight);
+document.getElementById("btnLeft").addEventListener("click", actionLeft);
+document.getElementById("btnRotate").addEventListener("click", actionRotate);
+document.getElementById("btnDown").addEventListener("click", actionMoveDown);
+
+window.addEventListener("keydown", function (e) {
+  if(e.code == "ArrowRight") {
+    actionRight();
+  } else if (e.code == "ArrowLeft") {
+    actionLeft();
+  } else if (e.code == "ArrowUp") {
+    actionRotate()
+  } else if (e.code == "ArrowDown"){
+    actionMoveDown();
   }
-  moveRL(1);
-  drawMatrix("game", matrix);
-});
-document.getElementById("btnLeft").addEventListener("click", function(){
-  if(gameIsPaused || !gameInPlay) {
-    return;
-  }
-  moveRL(-1);
-  drawMatrix("game", matrix);
-});
-document.getElementById("btnRotate").addEventListener("click", function(){
-  if(gameIsPaused || !gameInPlay) {
-    return;
-  }
-  rotate();
-  drawMatrix("game", matrix);
-});
-document.getElementById("btnDown").addEventListener("click", function(){
-  if(gameIsPaused || !gameInPlay) {
-    return;
-  }
-  move1Down();
 });
 
 window.addEventListener("keypress", function (e) {
