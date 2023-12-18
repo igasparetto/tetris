@@ -382,7 +382,7 @@ function rotate() {
 }
 
 function gameOver(){
-  message("Game Over<br>" + "Score: " + score);
+  message("Game Over");
   clearInterval(clockTick);
   gameInPlay = false;
   gameIsPaused = false;
