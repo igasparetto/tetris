@@ -114,9 +114,8 @@ h1 {text-align: center; color: white; color:#826aec}
 h2 {font-size: 16px; margin-top: 0;}
 
 #left, #centre, #right{padding: 10px;}
-#controls {display: flex;}
-#controls > div {flex-grow: 1; padding: 20px}
-#controls > div:nth-child(2) {text-align: right;}
+#controls div {display: block; text-align: center;}
+#controls .btn {min-width: 70px; height: 50px;}
 #instructions {display: none;}
 @media (min-width: 680px) {
   #left, #centre, #right{padding: 20px;}

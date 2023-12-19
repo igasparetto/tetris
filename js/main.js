@@ -56,6 +56,13 @@ let colors = [
   "pink",
   "orange"
 ];
+let messages = {
+  "game_over": "Game Over",
+  "game_paused": "Game Paused",
+  "playing": "Playing",
+  "btn_play": "Play",
+  "btn_pause": "Pause",
+}
 
 let clockTick;
 let speed;
@@ -314,11 +321,9 @@ function rotate() {
   let maxY;
   let minX = 1000;
   let minY = 1000;
-  let side;  
   let rowCounter = 0;
   let colCounter = 0;
-
-  side = (currentBlock[0].length > currentBlock.length ? currentBlock[0].length : currentBlock.length);
+  let side = (currentBlock[0].length > currentBlock.length ? currentBlock[0].length : currentBlock.length);
 
   currentBlockPositions.forEach((point) => {
     if(minY > point.row) {
@@ -382,7 +387,7 @@ function rotate() {
 }
 
 function gameOver(){
-  message("Game Over");
+  message(messages.game_over);
   clearInterval(clockTick);
   gameInPlay = false;
   gameIsPaused = false;
@@ -391,15 +396,15 @@ function gameOver(){
 
 function pause(){
   clearInterval(clockTick);
-  message("Game paused");
+  message(messages.game_paused);
   gameIsPaused = true;
-  $start.innerHTML = "Start";
+  $start.innerHTML = messages.btn_play;
 }
 
 function startTimer(){
   gameIsPaused = false;
-  message("Playing");
-  $start.innerHTML = "Pause";
+  message(messages.playing);
+  $start.innerHTML = messages.btn_pause;
   clockTick = setInterval(function(){
     move1Down();
     drawMatrix("game", matrix);
@@ -407,7 +412,7 @@ function startTimer(){
 }
 
 function init(){
-  message("Playing");
+  message(messages.playing);
   matrix = setInitialMatrix([], numberOfRows, numberOfColumns);
   speed = 600;
   currentBlockPositions = [];
@@ -426,7 +431,7 @@ function start() {
   nextBlockIn();
   startTimer();
   gameInPlay = true;
-  $start.innerHTML = "Pause";
+  $start.innerHTML = messages.btn_pause;
 }
 
 document.getElementById('extra-blocks').addEventListener("change", function (e) {
