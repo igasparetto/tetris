@@ -68,6 +68,7 @@ let clockTick;
 let speed;
 let gameInPlay = false;
 let gameIsPaused = false;
+var dropInterval;
 
 let numberOfRows = 20;
 let numberOfColumns = 10;
@@ -92,6 +93,7 @@ let totalBlocks = 0;
 let speedReductionFactor= 0.7; // 0.7 for -30%
 
 let $score = document.getElementById("score");
+let $scoreRecord = document.getElementById("score-record");
 let $level = document.getElementById("level");
 let $lines = document.getElementById("lines");
 let $speed = document.getElementById("speed");
@@ -237,12 +239,14 @@ function move1Down(){
     });
     currentBlockPositions = newCurrentBlockPositions;
   } else {
+    clearDropInterval();
     addScore(1);
     currentBlockPositions.forEach((point) => {
       matrix[point.row][point.col]["occupied"] = 2;
     });
 
     let rowsCleared = clearFirstCompleteRow();
+
     if(rowsCleared) {
       lines = lines+rowsCleared;
       $lines.innerHTML = lines;
@@ -386,9 +390,19 @@ function rotate() {
   }
 }
 
+function setMaxScore() {
+  let scoreRecord = localStorage.getItem("score-record");
+  if(scoreRecord < score) {
+    localStorage.setItem("score-record", score);
+    $scoreRecord.innerHTML = score;
+  }
+}
+
 function gameOver(){
   message(messages.game_over);
   clearInterval(clockTick);
+  clearDropInterval();
+  setMaxScore();
   gameInPlay = false;
   gameIsPaused = false;
   $start.innerHTML = "Start";
@@ -434,7 +448,7 @@ function start() {
   $start.innerHTML = messages.btn_pause;
 }
 
-document.getElementById('extra-blocks').addEventListener("change", function (e) {
+document.getElementById('extra-shapes').addEventListener("change", function (e) {
   if(e.target.checked) {
     blocks = basicBlocks.concat(extraBlocks);
   } else {
@@ -470,7 +484,14 @@ function actionRotate(){
   action(rotate);
 }
 function actionMoveDown(){
-  action(move1Down);
+  if(gameIsPaused || !gameInPlay) {
+    return;
+  }
+  dropInterval = setInterval(move1Down, 10)
+}
+
+function clearDropInterval(){
+  clearInterval(dropInterval);
 }
 
 document.getElementById("btnRight").addEventListener("click", actionRight);
@@ -502,5 +523,7 @@ window.addEventListener("keypress", function (e) {
   }
 });
 
+// onload
+$scoreRecord.innerHTML = localStorage.getItem("score-record") || 0;
 drawMatrix("game", setInitialMatrix([], numberOfRows, numberOfColumns));
 drawMatrix("next-piece", setInitialMatrix([], nextNumberOfRows, nextNumberOfColumns));
