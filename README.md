@@ -6,4 +6,6 @@
 
 ↓	pushes down
 
-space pauses the game
+Space pauses the game
+
+Play: https://igasparetto.github.io/tetris/
